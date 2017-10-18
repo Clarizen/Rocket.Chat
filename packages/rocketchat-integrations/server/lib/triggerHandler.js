@@ -399,6 +399,9 @@ RocketChat.integrations.triggerHandler = new class RocketChatIntegrationHandler 
 				if (message.editedAt) {
 					data.isEdited = true;
 				}
+				if (message.payload) {
+					data.payload = message.payload;
+				}
 				break;
 			case 'fileUploaded':
 				data.channel_id = room._id;
