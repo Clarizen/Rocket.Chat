@@ -1,5 +1,5 @@
 import moment from 'moment';
-
+const logger = new Logger('updateMessage');
 Meteor.methods({
 	updateMessage(message) {
 
@@ -18,7 +18,7 @@ Meteor.methods({
 		const hasPermission = RocketChat.authz.hasPermission(Meteor.userId(), 'edit-message', message.rid);
 		const editAllowed = RocketChat.settings.get('Message_AllowEditing');
 		const editOwn = originalMessage.u && originalMessage.u._id === Meteor.userId();
-
+		logger.debug('updateMessage', 'not going to update message: hasPermission ' + hasPermission + ', editAllowed:  ' + editAllowed + ', aditOwn: ' + editOwn);
 		if (!hasPermission && (!editAllowed || !editOwn)) {
 			throw new Meteor.Error('error-action-not-allowed', 'Message editing not allowed', { method: 'updateMessage', action: 'Message_editing' });
 		}
